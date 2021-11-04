@@ -49,6 +49,20 @@ async function Calculation({ index, baseDate, baseValue }) {
     //seta o começo dos dados como a baseDate
     const indicePrimeiro = readjusmentData.map(function (e) { return e.data; }).indexOf(initialDate);
     calcDataStart.push(readjusmentData.slice(indicePrimeiro));
+    //se mes da basedate >= ultimo indice+1 -> pega 2020 por ultimo e avisa dados indisp 
+    if (initialDate.split('/')[1] > calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) {
+        const dateReajust = `${initialDate.slice(0, 6)}${year - 1}`;
 
+        const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
+        calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
+
+
+        // se mesbase menor q mes ultimo indice, pega ate 2021
+    } else {
+        const dateReajust = `${initialDate.slice(0, 6)}${year}`;
+
+        const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
+        calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
+    }
 
 }
