@@ -33,3 +33,12 @@ function returnHyphenDate(time) {
         return newDate
     }
 }
+async function Calculation({ index, baseDate, baseValue }) {
+    //decide o índice pelo código da url requisitada
+    const pageIndex = (index == "IPCA") ? 433 : 189;
+    var url = `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${pageIndex}/dados?formato=json`;
+    //aux
+    var calcDataStart = [];
+    var calcDataFinal = [];
+    var calcMemory = [];
+}
