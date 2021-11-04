@@ -41,4 +41,14 @@ async function Calculation({ index, baseDate, baseValue }) {
     var calcDataStart = [];
     var calcDataFinal = [];
     var calcMemory = [];
+    var rentFinal = parseFloat(baseValue);
+    //requisição
+    var readjusmentData = await getIndex(url);
+    //adequa entrada em hifen para modelo com / que vem na requisição
+    const initialDate = fixHyphenDate(baseDate)
+    //seta o começo dos dados como a baseDate
+    const indicePrimeiro = readjusmentData.map(function (e) { return e.data; }).indexOf(initialDate);
+    calcDataStart.push(readjusmentData.slice(indicePrimeiro));
+
+
 }
