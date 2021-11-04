@@ -64,5 +64,14 @@ async function Calculation({ index, baseDate, baseValue }) {
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
     }
+    //multiplica o acumulador por 1+ porcentagem e salva memória de calculo anual
+    for (item in calcDataFinal[0]) {
+        var percentage = calcDataFinal[0][item].valor / 100
+        var rentFinal = rentFinal + (rentFinal * percentage)
+        //salva a memoria de calculo anual
+        if (item % 12 == 11) {
+            calcMemory.push(` valor atualizado: ${rentFinal.toFixed(2)} reajuste em: ${calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`)
+        }
+    }
 
 }
