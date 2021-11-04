@@ -73,5 +73,15 @@ async function Calculation({ index, baseDate, baseValue }) {
             calcMemory.push(` valor atualizado: ${rentFinal.toFixed(2)} reajuste em: ${calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`)
         }
     }
+    // lida com datas inferiores a um ano ou de antes do primeiro indice
+    if (!calcDataFinal[0][0]) {
+        calcMemory.push(`Faltam informações de índice para fazer esse cálculo.`)
+    }
+    // nos casos da condicional que pega ate year-1, adiciona comentario da memória de calc de year
+    if (calcMemory[calcMemory.length - 1].slice(39, 43) == `${year - 1}`) {
+        calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
+    }
+    return { value: rentFinal.toFixed(2), memory: calcMemory };
+
 
 }
