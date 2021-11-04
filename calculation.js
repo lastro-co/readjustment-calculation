@@ -82,6 +82,31 @@ async function Calculation({ index, baseDate, baseValue }) {
         calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
     }
     return { value: rentFinal.toFixed(2), memory: calcMemory };
-
-
 }
+
+// cénario de uso
+
+(async (calculation) => {
+    // IIFE
+    try {
+        const resultIGPM = await calculation({
+            index: 'IGPM',
+            baseDate: '2019-11-01',
+            baseValue: '300.33',
+        })
+        console.log(resultIGPM) // { value: 330.30, memory: [] 
+
+        const resultIPCA = await calculation({
+            index: 'IPCA',
+            baseDate: '2019-12-01',
+            baseValue: 300.33,
+        })
+        console.log(resultIPCA) // { value: 330.30, memory: [] }
+
+    } catch (error) {
+        console.error(error) // new Error();
+    }
+})(Calculation)
+
+
+//export { Calculation }
