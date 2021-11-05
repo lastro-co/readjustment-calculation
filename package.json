@@ -1,8 +1,9 @@
 {
-  "name": "calculator",
+  "name": "calculatorreadjustment",
   "version": "1.0.0",
   "description": "rent readjustment calculation",
-  "main": "index.js",
+  "main": "calculation.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +14,7 @@
   "author": "igorsalbr",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.24.0",
+    "esbuild": "^0.13.12"
   }
 }
