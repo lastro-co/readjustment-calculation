@@ -1,6 +1,6 @@
 {
   "name": "calculatorreadjustment",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "rent readjustment calculation",
   "main": "calculation.js",
   "type": "commonjs",
