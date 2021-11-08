@@ -2,12 +2,15 @@
 function that calculates the rent readjustmente for a given value and date
 -----------------------------------------------------------------
 **Installation:
-You can install using npm with the fallowing command:
+You can install using npm with the following command:
 - npm i calculatorreadjustment
 -----------------------------------------------------------------
 **Using the function:
 First you have to open the package.json file from your project and set:
 - "type": "modules"
+
+Then crate a .env file and paste:
+- NEXT_PUBLIC_API_URL=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzE4ODQ3NDgsImlzcyI6IkJBQ0tFTkQiLCJqdGkiOiJiMWQzMzU5My1kNjJhLTQwZGUtOTc4Ny1hNGEzNjMwNTI2NTIiLCJzY29wZSI6ImFwaSIsInN1YiI6IiJ9.dfKy81DRhhq1nNhsOIXnxXvHm7q6ykUX8qbDtOtNRYc
 
 After, you'll have to import the function:
 - import { Calculation } from "calculatorreadjustment/calculation.js"; 
@@ -24,11 +27,13 @@ Here are some examples
 
 (async (calculation) => {
     try {
+
         const resultIGPM = await calculation({
             index: 'IGPM',
             baseDate: '2019-11-01',
             baseValue: '300.33',
         })
+        
         console.log(resultIGPM) // { value: 330.30, memory: []
 
         const resultIPCA = await calculation({
@@ -42,7 +47,7 @@ Here are some examples
         console.error(error) // new Error();
     }
 })(Calculation)
-
+-----------------------------------------------------------------
 
 -----------------------------------------------------------------
 dependencies: 
