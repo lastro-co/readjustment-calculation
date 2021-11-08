@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "calculatorreadjustment",
-=======
-  "name": "calculatorreadjustment",
->>>>>>> 652f5418d0ee5932f1c3fd72661035c5419b4224
   "version": "1.1.1",
   "description": "rent readjustment calculation",
   "main": "calculation.js",
