@@ -14,11 +14,13 @@ Now you're able to call Calculation in your code, the argument is an object cont
 - index (IGPM or IPCA)
 - baseDate (the date from the start of the calculation)
 - baseValue (the rent that use to be charged on the baseDate)
+
+
+
+-----------------------------------------------------------------
 Here are some examples
-// cénario de uso
-/**
+
 (async (calculation) => {
-    // IIFE
     try {
         const resultIGPM = await calculation({
             index: 'IGPM',
@@ -39,7 +41,7 @@ Here are some examples
     }
 })(Calculation)
 
-*/
+
 -----------------------------------------------------------------
 dependencies: 
 - axios
