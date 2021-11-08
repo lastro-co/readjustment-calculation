@@ -8,8 +8,10 @@ You can install using npm with the fallowing command:
 **Using the function:
 First you have to open the package.json file from your project and set:
 - "type": "modules"
+
 After, you'll have to import the function:
 - import { Calculation } from "calculatorreadjustment/calculation.js"; 
+
 Now you're able to call Calculation in your code, the argument is an object containing:
 - index (IGPM or IPCA)
 - baseDate (the date from the start of the calculation)
