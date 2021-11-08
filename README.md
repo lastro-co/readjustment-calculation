@@ -1,8 +1,10 @@
 # readjustment-calculation
 function that calculates the rent readjustmente for a given value and date
+-----------------------------------------------------------------
 **Installation:
 You can install using npm with the fallowing command:
 - npm i calculatorreadjustment
+-----------------------------------------------------------------
 **Using the function:
 First you have to open the package.json file from your project and set:
 - "type": "modules"
@@ -38,6 +40,7 @@ Here are some examples
 })(Calculation)
 
 */
-
+-----------------------------------------------------------------
 dependencies: 
 - axios
+-----------------------------------------------------------------
