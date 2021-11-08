@@ -10,7 +10,7 @@ First you have to open the package.json file from your project and set:
 - "type": "modules"
 
 Then crate a .env file and paste:
-- NEXT_PUBLIC_API_URL=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzE4ODQ3NDgsImlzcyI6IkJBQ0tFTkQiLCJqdGkiOiJiMWQzMzU5My1kNjJhLTQwZGUtOTc4Ny1hNGEzNjMwNTI2NTIiLCJzY29wZSI6ImFwaSIsInN1YiI6IiJ9.dfKy81DRhhq1nNhsOIXnxXvHm7q6ykUX8qbDtOtNRYc
+- NEXT_PUBLIC_BEARER_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzE4ODQ3NDgsImlzcyI6IkJBQ0tFTkQiLCJqdGkiOiJiMWQzMzU5My1kNjJhLTQwZGUtOTc4Ny1hNGEzNjMwNTI2NTIiLCJzY29wZSI6ImFwaSIsInN1YiI6IiJ9.dfKy81DRhhq1nNhsOIXnxXvHm7q6ykUX8qbDtOtNRYc
 
 After, you'll have to import the function:
 - import { Calculation } from "calculatorreadjustment/calculation.js"; 
