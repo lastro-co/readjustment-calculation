@@ -108,4 +108,5 @@ async function Calculation({ index, baseDate, baseValue }) {
     }
 })(Calculation)
 */
+
 exports.Calculation = Calculation;
