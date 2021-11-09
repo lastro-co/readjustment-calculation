@@ -29,6 +29,9 @@ Now you're able to call Calculation in your code, the argument is an object cont
 - baseDate (the date from the start of the calculation)
 - baseValue (the rent that use to be charged on the baseDate)
 
+It returns an object containing the last readjusted value 
+according to the arguments and a calculation memory by year
+
 ## Examples
 -----------------------------------------------------------------
 
