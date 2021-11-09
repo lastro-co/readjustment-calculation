@@ -8,7 +8,9 @@ function that calculates the rent readjustmente for a given value and date
 
 You can install using npm with the following command:
 - npm i calculatorreadjustment
-##Using the function:
+
+## Preparing:
+-----------------------------------------------------------------
 
 First you have to open the package.json file from your project and set:
 - "type": "modules"
@@ -20,6 +22,8 @@ After, you'll have to import the function:
 
 - ```import { Calculation } from "calculatorreadjustment/calculation.js";```
 
+## Using:
+-----------------------------------------------------------------
 Now you're able to call Calculation in your code, the argument is an object containing:
 - index (IGPM or IPCA)
 - baseDate (the date from the start of the calculation)
