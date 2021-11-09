@@ -85,7 +85,7 @@ async function Calculation({ index, baseDate, baseValue }) {
 }
 
 // cénario de uso
-
+/** 
 (async (calculation) => {
     // IIFE
     try {
@@ -107,5 +107,5 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-
+*/
 exports.Calculation = Calculation;
