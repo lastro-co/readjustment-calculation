@@ -7,7 +7,7 @@ function that calculates the rent readjustmente for a given value and date
 -----------------------------------------------------------------
 
 You can install using npm with the following command:
-- npm i calculatorreadjustment
+- [npm i calculatorreadjustment](https://www.npmjs.com/package/calculatorreadjustment)
 
 ## Preparing:
 -----------------------------------------------------------------
