@@ -11,6 +11,9 @@
     "type": "git",
     "url": "https://github.com/Imovy/readjustment-calculation.git"
   },
+  "publishConfig": {
+    "@YOUR-USERNAME:registry": "https://npm.pkg.github.com"
+  },
   "author": "igorsalbr",
   "license": "ISC",
   "dependencies": {
