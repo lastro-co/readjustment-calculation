@@ -1,4 +1,4 @@
-/** 
+/**
 interface Initialvalues {
     index: string;
     baseDate: Date;
@@ -14,8 +14,7 @@ var currentTime = new Date();
 var year = currentTime.getFullYear();
 var month = currentTime.getMonth();
 const axios = require('axios');
-const token = process.env.NEXT_PUBLIC_BEARER_TOKEN;
-axios.defaults.headers.common = { 'Authorization': `bearer ${token}` };
+
 async function getIndex(url) {
     const { data } = await axios.get(url);
     // TODO: Guardar indices em um arquivo json dentro do projeto (atualizar mensalmente)
@@ -41,28 +40,35 @@ async function Calculation({ index, baseDate, baseValue }) {
     var calcDataStart = [];
     var calcDataFinal = [];
     var calcMemory = [];
-    var rentFinal = parseFloat(baseValue);
+    var dateReajustment = [];
+    initialDateTrada = baseValue.split(' ')[1]
+    var rentFinal = parseFloat(initialDateTrada);
     //requisição
     var readjusmentData = await getIndex(url);
+
     //adequa entrada em hifen para modelo com / que vem na requisição
     const initialDate = fixHyphenDate(baseDate)
     //seta o começo dos dados como a baseDate
     const indicePrimeiro = readjusmentData.map(function (e) { return e.data; }).indexOf(initialDate);
     calcDataStart.push(readjusmentData.slice(indicePrimeiro));
-    //se mes da basedate >= ultimo indice+1 -> pega 2020 por ultimo e avisa dados indisp 
+
+
+
+    //se mes da basedate >= ultimo indice+1 -> pega 2020 por ultimo e avisa dados indisp
     if (initialDate.split('/')[1] > calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) {
         const dateReajust = `${initialDate.slice(0, 6)}${year - 1}`;
 
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
-
-
+        const dateReajustTratada = dateReajustment.push(returnHyphenDate(dateReajust))
         // se mesbase menor q mes ultimo indice, pega ate 2021
     } else {
         const dateReajust = `${initialDate.slice(0, 6)}${year}`;
 
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
+        const dateReajustTratada = dateReajustment.push(returnHyphenDate(dateReajust))
+
     }
     //multiplica o acumulador por 1+ porcentagem e salva memória de calculo anual
     for (item in calcDataFinal[0]) {
@@ -73,6 +79,8 @@ async function Calculation({ index, baseDate, baseValue }) {
             calcMemory.push(` valor atualizado: ${rentFinal.toFixed(2)} reajuste em: ${calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`)
         }
     }
+    console.log(dateReajustment[0])
+
     // lida com datas inferiores a um ano ou de antes do primeiro indice
     if (!calcDataFinal[0][0]) {
         calcMemory.push(`Faltam informações de índice para fazer esse cálculo.`)
@@ -81,31 +89,31 @@ async function Calculation({ index, baseDate, baseValue }) {
     if (calcMemory[calcMemory.length - 1].slice(39, 43) == `${year - 1}`) {
         calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
     }
-    return { value: rentFinal.toFixed(2), memory: calcMemory };
+    return { value: rentFinal.toFixed(2), memory: calcMemory, date: dateReajustment[0] };
 }
 
 // cénario de uso
-/** 
+/**
 (async (calculation) => {
-    // IIFE
-    try {
-        const resultIGPM = await calculation({
-            index: 'IGPM',
-            baseDate: '2019-11-01',
-            baseValue: '300.33',
-        })
-        console.log(resultIGPM) // { value: 363.17, memory: []
+  // IIFE
+  try {
+    const resultIGPM = await calculation({
+      index: 'IGPM',
+      baseDate: '2019-11-01',
+      baseValue: 'R$ 30.000,33',
+    })
+    console.log(resultIGPM) // { value: 363.17, memory: []
 
-        const resultIPCA = await calculation({
-            index: 'IPCA',
-            baseDate: '2015-12-01',
-            baseValue: 300.33,
-        })
-        console.log(resultIPCA) // { value: 370.25, memory: [] }
+    const resultIPCA = await calculation({
+      index: 'IPCA',
+      baseDate: '2015-12-01',
+      baseValue: 'R$ 30000,33',
+    })
+    console.log(resultIPCA) // { value: 370.25, memory: [] }
 
-    } catch (error) {
-        console.error(error) // new Error();
-    }
+  } catch (error) {
+    console.error(error) // new Error();
+  }
 })(Calculation)
 */
 
