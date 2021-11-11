@@ -10,10 +10,9 @@ interface Initialvalues {
 
 
 
-var currentTime = new Date();
-var year = currentTime.getFullYear();
+let currentTime = new Date();
+let year = currentTime.getFullYear();
 const axios = require('axios');
-
 async function getIndex(url) {
     const { data } = await axios.get(url);
     // TODO: Guardar indices em um arquivo json dentro do projeto (atualizar mensalmente)
@@ -34,17 +33,18 @@ function returnHyphenDate(time) {
 async function Calculation({ index, baseDate, baseValue }) {
     //decide o índice pelo código da url requisitada
     const pageIndex = (index == "IPCA") ? 433 : 189;
-    var url = `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${pageIndex}/dados?formato=json`;
+    let url = `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${pageIndex}/dados?formato=json`;
     //aux
-    var calcDataStart = [];
-    var calcDataFinal = [];
-    var calcMemory = [];
-    var dateReajustment = [];
-    var acc = 1
+    let calcDataStart = [];
+    let calcDataFinal = [];
+    let calcMemory = [];
+    let dateReajustment = [];
+    let acc = 1
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzE4ODQ3NDgsImlzcyI6IkJBQ0tFTkQiLCJqdGkiOiJiMWQzMzU5My1kNjJhLTQwZGUtOTc4Ny1hNGEzNjMwNTI2NTIiLCJzY29wZSI6ImFwaSIsInN1YiI6IiJ9.dfKy81DRhhq1nNhsOIXnxXvHm7q6ykUX8qbDtOtNRYc'
     initialDateTrada = baseValue.split(' ')[1]
-    var rentFinal = parseFloat(initialDateTrada);
+    let rentFinal = parseFloat(initialDateTrada);
     //requisição
-    var readjusmentData = await getIndex(url);
+    let readjusmentData = await getIndex(url, token);
 
     //adequa entrada em hifen para modelo com / que vem na requisição
     const initialDate = `01${fixHyphenDate(baseDate).slice(2)}`
@@ -71,7 +71,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     //multiplica o acumulador por 1+ porcentagem e salva memória de calculo anual
     for (item in calcDataFinal[0]) {
         var percentage = calcDataFinal[0][item].valor / 100
-        var rentFinal = rentFinal + (rentFinal * percentage)
+        rentFinal = rentFinal + (rentFinal * percentage)
         acc = acc + acc * percentage
         //salva a memoria de calculo anual
         if (item % 12 == 11) {
