@@ -12,7 +12,6 @@ interface Initialvalues {
 
 var currentTime = new Date();
 var year = currentTime.getFullYear();
-var month = currentTime.getMonth();
 const axios = require('axios');
 
 async function getIndex(url) {
