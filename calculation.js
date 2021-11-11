@@ -14,7 +14,7 @@ let currentTime = new Date();
 let year = currentTime.getFullYear();
 const axios = require('axios');
 async function getIndex(url) {
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(url, { 'headers': { 'Authorization': '' } });
     // TODO: Guardar indices em um arquivo json dentro do projeto (atualizar mensalmente)
     return data;
 }
