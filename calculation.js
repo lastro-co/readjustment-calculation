@@ -41,13 +41,14 @@ async function Calculation({ index, baseDate, baseValue }) {
     var calcDataFinal = [];
     var calcMemory = [];
     var dateReajustment = [];
+    var acc = 1
     initialDateTrada = baseValue.split(' ')[1]
     var rentFinal = parseFloat(initialDateTrada);
     //requisição
     var readjusmentData = await getIndex(url);
 
     //adequa entrada em hifen para modelo com / que vem na requisição
-    const initialDate = fixHyphenDate(baseDate)
+    const initialDate = `01${fixHyphenDate(baseDate).slice(2)}`
     //seta o começo dos dados como a baseDate
     const indicePrimeiro = readjusmentData.map(function (e) { return e.data; }).indexOf(initialDate);
     calcDataStart.push(readjusmentData.slice(indicePrimeiro));
@@ -56,40 +57,45 @@ async function Calculation({ index, baseDate, baseValue }) {
 
     //se mes da basedate >= ultimo indice+1 -> pega 2020 por ultimo e avisa dados indisp
     if (initialDate.split('/')[1] > calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) {
-        const dateReajust = `${initialDate.slice(0, 6)}${year - 1}`;
-
+        const dateReajust = `01${initialDate.slice(2, 6)}${year - 1}`;
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
         const dateReajustTratada = dateReajustment.push(returnHyphenDate(dateReajust))
         // se mesbase menor q mes ultimo indice, pega ate 2021
     } else {
-        const dateReajust = `${initialDate.slice(0, 6)}${year}`;
-
+        const dateReajust = `01${initialDate.slice(2, 6)}${year}`;
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
-        const dateReajustTratada = dateReajustment.push(returnHyphenDate(dateReajust))
+        dateReajustment.push(returnHyphenDate(dateReajust))
 
     }
     //multiplica o acumulador por 1+ porcentagem e salva memória de calculo anual
     for (item in calcDataFinal[0]) {
         var percentage = calcDataFinal[0][item].valor / 100
         var rentFinal = rentFinal + (rentFinal * percentage)
+        acc = acc + acc * percentage
         //salva a memoria de calculo anual
         if (item % 12 == 11) {
-            calcMemory.push(` valor atualizado: ${rentFinal.toFixed(2)} reajuste em: ${calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`)
+            calcMemory.push({
+                date: (`${calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`),
+                value: rentFinal.toFixed(2).replace('.', ','),
+                rate: `${((acc - 1) * 100).toFixed(2).replace('.', ',')}`,
+            })
+            acc = 1
         }
     }
-    console.log(dateReajustment[0])
-
+    const dataRetorno = dateReajustment[0].slice(0, 7)
     // lida com datas inferiores a um ano ou de antes do primeiro indice
     if (!calcDataFinal[0][0]) {
         calcMemory.push(`Faltam informações de índice para fazer esse cálculo.`)
     }
     // nos casos da condicional que pega ate year-1, adiciona comentario da memória de calc de year
-    if (calcMemory[calcMemory.length - 1].slice(39, 43) == `${year - 1}`) {
-        calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
+    /**
+    if (calcMemory[calcMemory.length - 1].date.slice(0, 4) == `${year - 1}`) {
+      calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
     }
-    return { value: rentFinal.toFixed(2), memory: calcMemory, date: dateReajustment[0] };
+     */
+    return { value: rentFinal.toFixed(2).replace('.', ','), memory: calcMemory, date: dataRetorno, rate: calcMemory[calcMemory.length - 1].rate };
 }
 
 // cénario de uso
@@ -99,7 +105,7 @@ async function Calculation({ index, baseDate, baseValue }) {
   try {
     const resultIGPM = await calculation({
       index: 'IGPM',
-      baseDate: '2019-11-01',
+      baseDate: '2019-07-01',
       baseValue: 'R$ 30.000,33',
     })
     console.log(resultIGPM) // { value: 363.17, memory: []
