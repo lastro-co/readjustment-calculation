@@ -72,7 +72,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     for (item in calcDataFinal[0]) {
         var percentage = calcDataFinal[0][item].valor / 100
         rentFinal = rentFinal * (1 + percentage)
-        acc = acc + acc * percentage
+        acc = acc * (1 + percentage)
         //salva a memoria de calculo anual
         if (item % 12 == 11) {
             calcMemory.push({
