@@ -13,8 +13,8 @@ interface Initialvalues {
 let currentTime = new Date();
 let year = currentTime.getFullYear();
 const axios = require('axios');
-async function getIndex(url, token) {
-    const { data } = await axios.get(url, { 'headers': { 'Authorization': `${token}` } });
+async function getIndex(url) {
+    const { data } = await axios.get(url, { 'headers': { 'Content-Type': 'application/json' } });
     // TODO: Guardar indices em um arquivo json dentro do projeto (atualizar mensalmente)
     return data;
 }
@@ -44,7 +44,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     initialDateTrada = baseValue.split(' ')[1]
     let rentFinal = parseFloat(initialDateTrada);
     //requisição
-    let readjusmentData = await getIndex(url, token);
+    let readjusmentData = await getIndex(url);
 
     //adequa entrada em hifen para modelo com / que vem na requisição
     const initialDate = `01${fixHyphenDate(baseDate).slice(2)}`
