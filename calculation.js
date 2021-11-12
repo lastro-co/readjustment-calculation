@@ -88,6 +88,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     if (!calcDataFinal[0][0]) {
         calcMemory.push(`Faltam informações de índice para fazer esse cálculo.`)
     }
+    console.log('alterado')
     // nos casos da condicional que pega ate year-1, adiciona comentario da memória de calc de year
     /**
     if (calcMemory[calcMemory.length - 1].date.slice(0, 4) == `${year - 1}`) {
@@ -98,7 +99,7 @@ async function Calculation({ index, baseDate, baseValue }) {
 }
 
 // cénario de uso
-
+/** 
 (async (calculation) => {
     // IIFE
     try {
@@ -120,6 +121,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-
+*/
 
 exports.Calculation = Calculation;
