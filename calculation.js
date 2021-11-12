@@ -42,9 +42,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     let dateReajustment = [];
     let acc = 1
     initialDateTrada = baseValue.split(' ')[1].replaceAll('.', '')
-    console.log(initialDateTrada)
     let rentFinal = parseFloat(initialDateTrada.replace(',', '.'));
-    console.log(rentFinal)
     //requisição
     let readjusmentData = await getIndex(url);
 
