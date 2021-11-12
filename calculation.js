@@ -41,9 +41,10 @@ async function Calculation({ index, baseDate, baseValue }) {
     let calcMemory = [];
     let dateReajustment = [];
     let acc = 1
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzE4ODQ3NDgsImlzcyI6IkJBQ0tFTkQiLCJqdGkiOiJiMWQzMzU5My1kNjJhLTQwZGUtOTc4Ny1hNGEzNjMwNTI2NTIiLCJzY29wZSI6ImFwaSIsInN1YiI6IiJ9.dfKy81DRhhq1nNhsOIXnxXvHm7q6ykUX8qbDtOtNRYc'
-    initialDateTrada = baseValue.split(' ')[1]
-    let rentFinal = parseFloat(initialDateTrada.replace('.', ''));
+    initialDateTrada = baseValue.split(' ')[1].replaceAll('.', '')
+    console.log(initialDateTrada)
+    let rentFinal = parseFloat(initialDateTrada.replace(',', '.'));
+    console.log(rentFinal)
     //requisição
     let readjusmentData = await getIndex(url);
 
@@ -60,7 +61,7 @@ async function Calculation({ index, baseDate, baseValue }) {
         const dateReajust = `01${initialDate.slice(2, 6)}${year - 1}`;
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
-        const dateReajustTratada = dateReajustment.push(returnHyphenDate(dateReajust))
+        dateReajustment.push(returnHyphenDate(dateReajust))
         // se mesbase menor q mes ultimo indice, pega ate 2021
     } else {
         const dateReajust = `01${initialDate.slice(2, 6)}${year}`;
@@ -72,7 +73,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     //multiplica o acumulador por 1+ porcentagem e salva memória de calculo anual
     for (item in calcDataFinal[0]) {
         var percentage = calcDataFinal[0][item].valor / 100
-        rentFinal = rentFinal + (rentFinal * percentage)
+        rentFinal = rentFinal * (1 + percentage)
         acc = acc + acc * percentage
         //salva a memoria de calculo anual
         if (item % 12 == 11) {
@@ -106,14 +107,14 @@ async function Calculation({ index, baseDate, baseValue }) {
         const resultIGPM = await calculation({
             index: 'IGPM',
             baseDate: '2019-07-01',
-            baseValue: 'R$ 30.000,33',
+            baseValue: 'R$ 300.000,33',
         })
         console.log(resultIGPM) // { value: 363.17, memory: []
 
         const resultIPCA = await calculation({
             index: 'IPCA',
             baseDate: '2015-12-01',
-            baseValue: 'R$ 30000,33',
+            baseValue: 'R$ 1.000.000,33',
         })
         console.log(resultIPCA) // { value: 370.25, memory: [] }
 
