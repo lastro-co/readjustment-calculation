@@ -43,7 +43,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     let acc = 1
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzE4ODQ3NDgsImlzcyI6IkJBQ0tFTkQiLCJqdGkiOiJiMWQzMzU5My1kNjJhLTQwZGUtOTc4Ny1hNGEzNjMwNTI2NTIiLCJzY29wZSI6ImFwaSIsInN1YiI6IiJ9.dfKy81DRhhq1nNhsOIXnxXvHm7q6ykUX8qbDtOtNRYc'
     initialDateTrada = baseValue.split(' ')[1]
-    let rentFinal = parseFloat(initialDateTrada);
+    let rentFinal = parseFloat(initialDateTrada.replace('.', ''));
     //requisição
     let readjusmentData = await getIndex(url);
 
@@ -106,7 +106,7 @@ async function Calculation({ index, baseDate, baseValue }) {
         const resultIGPM = await calculation({
             index: 'IGPM',
             baseDate: '2019-07-01',
-            baseValue: 'R$ 30000,33',
+            baseValue: 'R$ 30.000,33',
         })
         console.log(resultIGPM) // { value: 363.17, memory: []
 
