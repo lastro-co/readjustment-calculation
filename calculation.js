@@ -13,8 +13,8 @@ interface Initialvalues {
 let currentTime = new Date();
 let year = currentTime.getFullYear();
 const axios = require('axios');
-async function getIndex(url) {
-    const { data } = await axios.get(url, { 'headers': { 'Authorization': '' } });
+async function getIndex(url, token) {
+    const { data } = await axios.get(url, { 'headers': { 'Authorization': `${token}` } });
     // TODO: Guardar indices em um arquivo json dentro do projeto (atualizar mensalmente)
     return data;
 }
@@ -98,28 +98,28 @@ async function Calculation({ index, baseDate, baseValue }) {
 }
 
 // cénario de uso
-/**
+
 (async (calculation) => {
-  // IIFE
-  try {
-    const resultIGPM = await calculation({
-      index: 'IGPM',
-      baseDate: '2019-07-01',
-      baseValue: 'R$ 30.000,33',
-    })
-    console.log(resultIGPM) // { value: 363.17, memory: []
+    // IIFE
+    try {
+        const resultIGPM = await calculation({
+            index: 'IGPM',
+            baseDate: '2019-07-01',
+            baseValue: 'R$ 30000,33',
+        })
+        console.log(resultIGPM) // { value: 363.17, memory: []
 
-    const resultIPCA = await calculation({
-      index: 'IPCA',
-      baseDate: '2015-12-01',
-      baseValue: 'R$ 30000,33',
-    })
-    console.log(resultIPCA) // { value: 370.25, memory: [] }
+        const resultIPCA = await calculation({
+            index: 'IPCA',
+            baseDate: '2015-12-01',
+            baseValue: 'R$ 30000,33',
+        })
+        console.log(resultIPCA) // { value: 370.25, memory: [] }
 
-  } catch (error) {
-    console.error(error) // new Error();
-  }
+    } catch (error) {
+        console.error(error) // new Error();
+    }
 })(Calculation)
-*/
+
 
 exports.Calculation = Calculation;
