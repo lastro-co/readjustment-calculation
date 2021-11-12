@@ -35,6 +35,8 @@ async function Calculation({ index, baseDate, baseValue }) {
     const pageIndex = (index == "IPCA") ? 433 : 189;
     let url = `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${pageIndex}/dados?formato=json`;
     //aux
+    console.log('alterado')
+
     let calcDataStart = [];
     let calcDataFinal = [];
     let calcMemory = [];
@@ -88,7 +90,6 @@ async function Calculation({ index, baseDate, baseValue }) {
     if (!calcDataFinal[0][0]) {
         calcMemory.push(`Faltam informações de índice para fazer esse cálculo.`)
     }
-    console.log('alterado')
     // nos casos da condicional que pega ate year-1, adiciona comentario da memória de calc de year
     /**
     if (calcMemory[calcMemory.length - 1].date.slice(0, 4) == `${year - 1}`) {
