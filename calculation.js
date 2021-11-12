@@ -35,7 +35,6 @@ async function Calculation({ index, baseDate, baseValue }) {
     const pageIndex = (index == "IPCA") ? 433 : 189;
     let url = `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${pageIndex}/dados?formato=json`;
     //aux
-    console.log('alterado')
 
     let calcDataStart = [];
     let calcDataFinal = [];
