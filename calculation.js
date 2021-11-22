@@ -41,11 +41,10 @@ async function Calculation({ index, baseDate, baseValue }) {
     let calcMemory = [];
     let dateReajustment = [];
     let acc = 1
-    initialDateTrada = baseValue.split(' ')[1].replaceAll('.', '')
-    let rentFinal = parseFloat(initialDateTrada.replace(',', '.'));
+    initialDataTrada = baseValue.split(' ')[1].replaceAll('.', '')
+    let rentFinal = parseFloat(initialDataTrada.replace(',', '.'));
     //requisição
     let readjusmentData = await getIndex(url);
-
     //adequa entrada em hifen para modelo com / que vem na requisição
     const initialDate = `01${fixHyphenDate(baseDate).slice(2)}`
     //seta o começo dos dados como a baseDate
@@ -94,7 +93,7 @@ async function Calculation({ index, baseDate, baseValue }) {
       calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
     }
      */
-    if (initialDateTrada != '0,00') {
+    if (parseFloat(initialDataTrada)) {
         return { value: rentFinal.toFixed(2).replace('.', ','), memory: calcMemory, date: dataRetorno, rate: calcMemory[calcMemory.length - 1].rate };
     } else {
         return { value: 0, memory: 0, date: dataRetorno, rate: 0 };
@@ -103,14 +102,14 @@ async function Calculation({ index, baseDate, baseValue }) {
 }
 
 // cénario de uso
-
+/** 
 (async (calculation) => {
     // IIFE
     try {
         const resultIGPM = await calculation({
             index: 'IGPM',
             baseDate: '2019-07-01',
-            baseValue: 'R$ 0,00',
+            baseValue: 'R$ 0,0',
         })
         console.log(resultIGPM) // { value: 363.17, memory: []
 
@@ -125,6 +124,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-
+**/
 
 exports.Calculation = Calculation;
