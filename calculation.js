@@ -94,18 +94,23 @@ async function Calculation({ index, baseDate, baseValue }) {
       calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
     }
      */
-    return { value: rentFinal.toFixed(2).replace('.', ','), memory: calcMemory, date: dataRetorno, rate: calcMemory[calcMemory.length - 1].rate };
+    if (initialDateTrada != '0,00') {
+        return { value: rentFinal.toFixed(2).replace('.', ','), memory: calcMemory, date: dataRetorno, rate: calcMemory[calcMemory.length - 1].rate };
+    } else {
+        return { value: 0, memory: 0, date: dataRetorno, rate: 0 };
+    }
+
 }
 
 // cénario de uso
-/** 
+
 (async (calculation) => {
     // IIFE
     try {
         const resultIGPM = await calculation({
             index: 'IGPM',
             baseDate: '2019-07-01',
-            baseValue: 'R$ 300.000,33',
+            baseValue: 'R$ 0,00',
         })
         console.log(resultIGPM) // { value: 363.17, memory: []
 
@@ -120,6 +125,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-*/
+
 
 exports.Calculation = Calculation;
