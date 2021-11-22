@@ -96,7 +96,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     if (parseFloat(initialDataTrada)) {
         return { value: rentFinal.toFixed(2).replace('.', ','), memory: calcMemory, date: dataRetorno, rate: calcMemory[calcMemory.length - 1].rate };
     } else {
-        return { value: 0, memory: [{ date: dataRetorno, value: 0, rate: 0 }], date: dataRetorno, rate: 0 };
+        return { value: '0,00', memory: [], date: dataRetorno, rate: '0,00' };
     }
 
 }
