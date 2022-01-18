@@ -52,18 +52,22 @@ async function Calculation({ index, baseDate, baseValue }) {
 
     calcDataStart.push(readjusmentData.slice(indicePrimeiro));
     const mesultimoindice = calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1] == 12 ? 1 : calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1] + 1
-    //se mes da basedate >= ultimo indice+1 -> pega 2020 por ultimo e avisa dados indisp
+    //se mes da basedate >= ultimo indice+1 -> pega ultimo ano por ultimo e avisa dados indisp
     if (initialDate.split('/')[1] > mesultimoindice) {
-        const dateReajust = `01${initialDate.slice(2, 6)}${year - 1}`;
+        const dateReajust = `01/${initialDate.slice(3, 5)}/${year - 1}`;
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
         dateReajustment.push(returnHyphenDate(dateReajust))
+        console.log(dateReajust)
+
         // se mesbase menor q mes ultimo indice, pega ate 2021
     } else {
-        const dateReajust = `01${initialDate.slice(2, 6)}${year}`;
-        const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
-        calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
+        const dateReajust = `01/${initialDate.slice(3, 5)}/${year}`;
+        const dateJanuary = `01/12/${year - 1}`
+        const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(initialDate.slice(3, 5) == '01' ? dateJanuary : dateReajust);
+        calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo + 1));
         dateReajustment.push(returnHyphenDate(dateReajust))
+
 
     }
     //multiplica o acumulador por 1+ porcentagem e salva memória de calculo anual
@@ -72,9 +76,9 @@ async function Calculation({ index, baseDate, baseValue }) {
         rentFinal = rentFinal * (1 + percentage)
         acc = acc * (1 + percentage)
         //salva a memoria de calculo anual
-        if (item % 12 == 11) {
+        if ((item) % 12 == 11) {
             calcMemory.push({
-                date: (`${calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`),
+                date: (`${mesultimoindice == "01" ? (parseInt(calcDataFinal[0][item].data.slice(6)) + 1) : calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`),
                 value: rentFinal.toFixed(2).replace('.', ','),
                 rate: `${((acc - 1) * 100).toFixed(2).replace('.', ',')}`,
             })
@@ -98,20 +102,20 @@ async function Calculation({ index, baseDate, baseValue }) {
 }
 
 // cénario de uso
-/** 
+
 (async (calculation) => {
     // IIFE
     try {
         const resultIGPM = await calculation({
             index: 'IGPM',
-            baseDate: '2019-01-01',
+            baseDate: '2018-01-01',
             baseValue: 'R$ 0,36',
         })
         console.log(resultIGPM) // { value: 363.17, memory: []
 
         const resultIPCA = await calculation({
             index: 'IPCA',
-            baseDate: '2015-02-01',
+            baseDate: '2019-08-01',
             baseValue: 'R$ 1.000.000,33',
         })
         console.log(resultIPCA) // { value: 370.25, memory: [] }
@@ -120,6 +124,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-*/
+
 
 exports.Calculation = Calculation;
