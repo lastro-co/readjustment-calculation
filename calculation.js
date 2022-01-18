@@ -98,7 +98,7 @@ async function Calculation({ index, baseDate, baseValue }) {
 }
 
 // cénario de uso
-
+/** 
 (async (calculation) => {
     // IIFE
     try {
@@ -111,7 +111,7 @@ async function Calculation({ index, baseDate, baseValue }) {
 
         const resultIPCA = await calculation({
             index: 'IPCA',
-            baseDate: '2015-11-01',
+            baseDate: '2015-02-01',
             baseValue: 'R$ 1.000.000,33',
         })
         console.log(resultIPCA) // { value: 370.25, memory: [] }
@@ -120,6 +120,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-
+*/
 
 exports.Calculation = Calculation;
