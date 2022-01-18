@@ -41,7 +41,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     let calcMemory = [];
     let dateReajustment = [];
     let acc = 1
-    initialDataTrada = baseValue.split(' ')[1].replaceAll('.', '')
+    let initialDataTrada = (baseValue.split(' '))[1].replace('.', '')
     let rentFinal = parseFloat(initialDataTrada.replace(',', '.'));
     //requisição
     let readjusmentData = await getIndex(url);
@@ -49,12 +49,11 @@ async function Calculation({ index, baseDate, baseValue }) {
     const initialDate = `01${fixHyphenDate(baseDate).slice(2)}`
     //seta o começo dos dados como a baseDate
     const indicePrimeiro = readjusmentData.map(function (e) { return e.data; }).indexOf(initialDate);
+
     calcDataStart.push(readjusmentData.slice(indicePrimeiro));
-
-
-
+    const mesultimoindice = calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1] == 12 ? 1 : calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1] + 1
     //se mes da basedate >= ultimo indice+1 -> pega 2020 por ultimo e avisa dados indisp
-    if (initialDate.split('/')[1] > calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) {
+    if (initialDate.split('/')[1] > mesultimoindice) {
         const dateReajust = `01${initialDate.slice(2, 6)}${year - 1}`;
         const indiceUlitmo = calcDataStart[0].map(function (e) { return e.data; }).indexOf(dateReajust);
         calcDataFinal.push(calcDataStart[0].slice(0, indiceUlitmo));
@@ -93,29 +92,26 @@ async function Calculation({ index, baseDate, baseValue }) {
       calcMemory.push(`Faltam informações de índice para fazer o cálculo em ${year}-${month + 1}. `)
     }
      */
-    if (parseFloat(initialDataTrada)) {
-        return { value: rentFinal.toFixed(2).replace('.', ','), memory: calcMemory, date: dataRetorno, rate: calcMemory[calcMemory.length - 1].rate };
-    } else {
-        return { value: '0,00', memory: [], date: dataRetorno, rate: '0,00' };
-    }
+    //Parsefloat quebra valores menores q 1 
+    return { value: rentFinal.toFixed(2).replace('.', ','), memory: calcMemory, date: dataRetorno, rate: calcMemory[calcMemory.length - 1].rate };
 
 }
 
 // cénario de uso
-/** 
+
 (async (calculation) => {
     // IIFE
     try {
         const resultIGPM = await calculation({
             index: 'IGPM',
-            baseDate: '2019-07-01',
-            baseValue: 'R$ 0,0',
+            baseDate: '2019-01-01',
+            baseValue: 'R$ 0,36',
         })
         console.log(resultIGPM) // { value: 363.17, memory: []
 
         const resultIPCA = await calculation({
             index: 'IPCA',
-            baseDate: '2015-12-01',
+            baseDate: '2015-11-01',
             baseValue: 'R$ 1.000.000,33',
         })
         console.log(resultIPCA) // { value: 370.25, memory: [] }
@@ -124,6 +120,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-**/
+
 
 exports.Calculation = Calculation;
