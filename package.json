@@ -1,6 +1,6 @@
 {
   "name": "calculatorreadjustment",
-  "version": "4.1.7",
+  "version": "4.1.6",
   "description": "rent readjustment calculation",
   "main": "calculation.js",
   "type": "commonjs",
@@ -12,7 +12,7 @@
     "url": "https://github.com/Imovy/readjustment-calculation.git"
   },
   "publishConfig": {
-    "@imovy:registry": "https://npm.pkg.github.com"
+    "@igorsalbr:registry": "https://npm.pkg.github.com"
   },
   "author": "igorsalbr",
   "license": "ISC",
