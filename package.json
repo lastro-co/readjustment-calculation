@@ -1,5 +1,5 @@
 {
-  "name": "calculatorreadjustment",
+  "name": "@igorsalbr/calculatorreadjustment",
   "version": "4.1.3",
   "description": "rent readjustment calculation",
   "main": "calculation.js",
