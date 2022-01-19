@@ -1,6 +1,6 @@
 {
   "name": "@imovy/calculator-readjustment",
-  "version": "4.1.8",
+  "version": "4.1.9",
   "description": "rent readjustment calculation",
   "main": "calculation.js",
   "type": "commonjs",
