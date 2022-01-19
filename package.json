@@ -1,5 +1,5 @@
 {
-  "name": "calculatorreadjustment",
+  "name": "@imovy/calculator-readjustment",
   "version": "4.1.8",
   "description": "rent readjustment calculation",
   "main": "calculation.js",
