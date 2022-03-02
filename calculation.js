@@ -51,9 +51,10 @@ async function Calculation({ index, baseDate, baseValue }) {
     const indicePrimeiro = readjusmentData.map(function (e) { return e.data; }).indexOf(initialDate);
 
     calcDataStart.push(readjusmentData.slice(indicePrimeiro));
+    console.log(calcDataStart)
     const mesultimoindiceaux = parseInt(calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) == 12 ? '01' : parseInt(calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) + 1
     const mesultimoindice = `${mesultimoindiceaux}`.length > 1 ? mesultimoindiceaux : `0${mesultimoindiceaux}`
-
+    console.log(mesultimoindice)
     //se mes da basedate >= ultimo indice+1 -> pega ultimo ano por ultimo e avisa dados indisp
     if (initialDate.split('/')[1] > mesultimoindice) {
         const dateReajust = `01/${initialDate.slice(3, 5)}/${year - 1}`;
@@ -79,8 +80,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         acc = acc * (1 + percentage)
         //salva a memoria de calculo anual
         if ((item) % 12 == 11) {
-            console.log(calcDataFinal[0][item].data.slice(6))
-
             calcMemory.push({
                 date: (`${initialDate.slice(3, 5) == "01" ? (parseInt(calcDataFinal[0][item].data.slice(6))) + 1 : calcDataFinal[0][item].data.slice(6)}-${initialDate.slice(3, 5)}`),
                 value: rentFinal.toFixed(2).replace('.', ','),
@@ -106,20 +105,20 @@ async function Calculation({ index, baseDate, baseValue }) {
 }
 
 // cénario de uso
-
+/** 
 (async (calculation) => {
     // IIFE
     try {
         const resultIGPM = await calculation({
             index: 'IGPM',
-            baseDate: '2019-07-01',
+            baseDate: '2019-02-01',
             baseValue: 'R$ 0,36',
         })
         console.log(resultIGPM) // { value: 363.17, memory: []
 
         const resultIPCA = await calculation({
             index: 'IPCA',
-            baseDate: '2019-01-01',
+            baseDate: '2019-02-01',
             baseValue: 'R$ 1.000.000,33',
         })
         console.log(resultIPCA) // { value: 370.25, memory: [] }
@@ -128,6 +127,6 @@ async function Calculation({ index, baseDate, baseValue }) {
         console.error(error) // new Error();
     }
 })(Calculation)
-
+*/
 
 exports.Calculation = Calculation;
