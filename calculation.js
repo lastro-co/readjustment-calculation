@@ -51,10 +51,8 @@ async function Calculation({ index, baseDate, baseValue }) {
     const indicePrimeiro = readjusmentData.map(function (e) { return e.data; }).indexOf(initialDate);
 
     calcDataStart.push(readjusmentData.slice(indicePrimeiro));
-    console.log(calcDataStart)
     const mesultimoindiceaux = parseInt(calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) == 12 ? '01' : parseInt(calcDataStart[0][(calcDataStart[0].length - 1)].data.split('/')[1]) + 1
     const mesultimoindice = `${mesultimoindiceaux}`.length > 1 ? mesultimoindiceaux : `0${mesultimoindiceaux}`
-    console.log(mesultimoindice)
     //se mes da basedate >= ultimo indice+1 -> pega ultimo ano por ultimo e avisa dados indisp
     if (initialDate.split('/')[1] > mesultimoindice) {
         const dateReajust = `01/${initialDate.slice(3, 5)}/${year - 1}`;
