@@ -41,7 +41,7 @@ async function Calculation({ index, baseDate, baseValue }) {
     let calcMemory = [];
     let dateReajustment = [];
     let acc = 1
-    let initialDataTrada = (baseValue.split(' '))[1].replace('.', '')
+    let initialDataTrada = (baseValue.split(' '))[1].replaceAll('.', '')
     let rentFinal = parseFloat(initialDataTrada.replace(',', '.'));
     //requisição
     let readjusmentData = await getIndex(url);
